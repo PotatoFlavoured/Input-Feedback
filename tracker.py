@@ -68,6 +68,12 @@ class EditTracker:
         if not self.editing:
             if name == s.edit:
                 self._enter(t)
+                if s.edit_on_release and s.select in self.down:
+                    # Select already held when edit opened: the game starts
+                    # selecting straight away, so releasing it confirms.
+                    self.changed = True
+                    self.holding = True
+                    self.hold_started = t
             return None
 
         if name == s.edit:
@@ -98,12 +104,9 @@ class EditTracker:
             if self.holding:
                 return self._fail(f"Switched to {label} while still holding select. "
                                   "Edit was not confirmed.")
-            if self.changed:
-                confirm = "pressing edit" if not s.edit_on_release else "confirming"
-                return self._fail(f"Switched to {label} before {confirm}. "
-                                  "Edit was not confirmed.")
-            self.reset()
-            return None
+            confirm = "releasing select" if s.edit_on_release else "pressing edit"
+            return self._fail(f"Switched to {label} before {confirm}. "
+                              "Edit was not confirmed.")
 
         return None
 

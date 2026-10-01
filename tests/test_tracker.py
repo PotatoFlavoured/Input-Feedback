@@ -87,6 +87,19 @@ class EditOnReleaseOn(unittest.TestCase):
         r.tap("1")
         self.assertEqual(r.out, [])
 
+    def test_edit_then_build_without_selecting_is_error(self):
+        r = Runner(make(True))
+        r.tap("g")
+        r.tap("f1")
+        self.assertEqual(r.out, [ERROR])
+
+    def test_select_held_before_edit_then_build_is_error(self):
+        r = Runner(make(True))
+        r.press("mouse_left")
+        r.tap("g")
+        r.tap("f2")
+        self.assertEqual(r.out, [ERROR])
+
     def test_reset_then_edit_confirms(self):
         r = Runner(make(True))
         r.tap("g")
@@ -94,12 +107,12 @@ class EditOnReleaseOn(unittest.TestCase):
         r.tap("g")
         self.assertEqual(r.out, [SUCCESS])
 
-    def test_select_held_from_before_edit_is_ignored(self):
+    def test_select_held_from_before_edit_confirms_on_release(self):
         r = Runner(make(True))
-        r.press("mouse_left")  # shooting
+        r.press("mouse_left")
         r.tap("g")
         r.release("mouse_left")
-        self.assertEqual(r.out, [])
+        self.assertEqual(r.out, [SUCCESS])
 
     def test_shooting_outside_edit_is_ignored(self):
         r = Runner(make(True))
@@ -123,6 +136,12 @@ class EditOnReleaseOff(unittest.TestCase):
         r.tap("g")
         r.tap("mouse_left")
         r.tap("2")
+        self.assertEqual(r.out, [ERROR])
+
+    def test_edit_then_build_without_selecting_is_error(self):
+        r = Runner(make(False))
+        r.tap("g")
+        r.tap("f3")
         self.assertEqual(r.out, [ERROR])
 
     def test_escape_before_confirm_is_error(self):

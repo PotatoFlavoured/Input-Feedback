@@ -16,13 +16,13 @@ The settings window also shows confirmed edits, missed edits, slow releases, an 
 
 **Edit on release ON** (press edit → hold left click on tiles → *release* left click to confirm)
 - Pressing **edit again** while still holding left click → red (the edit wasn't confirmed)
-- Pressing a **build piece, weapon slot, pickaxe, build toggle or Esc** while still holding left click → red
+- Pressing a **build piece, weapon slot, pickaxe, build toggle or Esc** at any point after pressing edit and before releasing left click → red. This includes when you never clicked a tile, and when you were already holding left click as you pressed edit.
 - Holding left click in edit for longer than 1000 ms → red while you're holding, as a reminder to let go. It turns green when you release. You can change the time, or set it to 0 to turn this off.
 
 **Edit on release OFF** (press edit → left click tiles → press *edit* again to confirm)
-- Selecting tiles and then switching to a build piece, weapon, pickaxe, build toggle or pressing Esc **without pressing edit again** → red
+- Pressing edit and then switching to a build piece, weapon, pickaxe, build toggle or pressing Esc **without pressing edit again** → red
 
-These don't count as mistakes: opening edit and closing it without changing anything, or shooting / holding left click outside of edit.
+These don't count as mistakes: pressing edit twice to open and close edit, or shooting / holding left click outside of edit.
 
 ## Setup (Windows)
 
